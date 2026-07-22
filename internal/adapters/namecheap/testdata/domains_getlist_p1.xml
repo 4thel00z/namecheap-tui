@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.getList">
+    <DomainGetListResult>
+      <Domain ID="1" Name="alpha.com" User="owner" Created="02/15/2020" Expires="02/15/2027" IsExpired="false" IsLocked="false" AutoRenew="true" WhoisGuard="ENABLED" IsPremium="false" IsOurDNS="true" />
+      <Domain ID="2" Name="beta.co.uk" User="owner" Created="03/01/2021" Expires="03/01/2026" IsExpired="false" IsLocked="true" AutoRenew="false" WhoisGuard="NOTPRESENT" IsPremium="false" IsOurDNS="false" />
+    </DomainGetListResult>
+    <Paging>
+      <TotalItems>3</TotalItems>
+      <CurrentPage>1</CurrentPage>
+      <PageSize>2</PageSize>
+    </Paging>
+  </CommandResponse>
+</ApiResponse>
