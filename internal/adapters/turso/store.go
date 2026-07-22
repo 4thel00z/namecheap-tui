@@ -62,7 +62,9 @@ func (s *Store) Sync() error {
 	if s.connector == nil {
 		return nil
 	}
-	_, err := s.connector.Sync()
+	// go-libsql deprecates Connector.Sync in favor of the tursogo package;
+	// migrating is planned for the sync-UX phase.
+	_, err := s.connector.Sync() //nolint:staticcheck
 	return err
 }
 

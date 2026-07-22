@@ -97,7 +97,7 @@ func (r *profileRepo) List(ctx context.Context) ([]account.Profile, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	var out []account.Profile
 	for rows.Next() {
 		var p account.Profile
