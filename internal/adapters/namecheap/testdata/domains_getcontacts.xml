@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.getContacts">
+    <DomainContactsResult Domain="alpha.com" domainnameid="9007">
+      <Registrant>
+        <FirstName>Ada</FirstName>
+        <LastName>Lovelace</LastName>
+        <Address1>1 Analytical Way</Address1>
+        <City>London</City>
+        <StateProvince>LDN</StateProvince>
+        <PostalCode>E1 6AN</PostalCode>
+        <Country>GB</Country>
+        <Phone>+44.2071234567</Phone>
+        <EmailAddress>ada@example.org</EmailAddress>
+      </Registrant>
+      <Tech>
+        <FirstName>Grace</FirstName>
+        <LastName>Hopper</LastName>
+        <Address1>2 Compiler Ct</Address1>
+        <City>Arlington</City>
+        <StateProvince>VA</StateProvince>
+        <PostalCode>22201</PostalCode>
+        <Country>US</Country>
+        <Phone>+1.7035551234</Phone>
+        <EmailAddress>grace@example.org</EmailAddress>
+      </Tech>
+      <Admin>
+        <FirstName>Ada</FirstName>
+        <LastName>Lovelace</LastName>
+        <Address1>1 Analytical Way</Address1>
+        <City>London</City>
+        <StateProvince>LDN</StateProvince>
+        <PostalCode>E1 6AN</PostalCode>
+        <Country>GB</Country>
+        <Phone>+44.2071234567</Phone>
+        <EmailAddress>ada@example.org</EmailAddress>
+      </Admin>
+      <AuxBilling>
+        <FirstName>Ada</FirstName>
+        <LastName>Lovelace</LastName>
+        <Address1>1 Analytical Way</Address1>
+        <City>London</City>
+        <StateProvince>LDN</StateProvince>
+        <PostalCode>E1 6AN</PostalCode>
+        <Country>GB</Country>
+        <Phone>+44.2071234567</Phone>
+        <EmailAddress>ada@example.org</EmailAddress>
+      </AuxBilling>
+    </DomainContactsResult>
+  </CommandResponse>
+</ApiResponse>

@@ -11,10 +11,13 @@ import (
 
 	"github.com/4thel00z/namecheap-tui/internal/adapters/tui"
 	"github.com/4thel00z/namecheap-tui/internal/core/domain/registrar"
+	"github.com/4thel00z/namecheap-tui/internal/core/ports"
 	"github.com/4thel00z/namecheap-tui/internal/core/services"
 )
 
-type fakeRegistrar struct{}
+type fakeRegistrar struct {
+	ports.RegistrarAPI // unimplemented methods panic if called
+}
 
 func (fakeRegistrar) ListDomains(context.Context) ([]registrar.Domain, error) {
 	n, _ := registrar.Parse("alpha.com")

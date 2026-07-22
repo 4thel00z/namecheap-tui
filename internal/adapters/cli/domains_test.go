@@ -8,10 +8,14 @@ import (
 
 	"github.com/4thel00z/namecheap-tui/internal/adapters/cli"
 	"github.com/4thel00z/namecheap-tui/internal/core/domain/registrar"
+	"github.com/4thel00z/namecheap-tui/internal/core/ports"
 	"github.com/4thel00z/namecheap-tui/internal/core/services"
 )
 
-type memRegistrar struct{ domains []registrar.Domain }
+type memRegistrar struct {
+	ports.RegistrarAPI // unimplemented methods panic if called
+	domains            []registrar.Domain
+}
 
 func (f *memRegistrar) ListDomains(context.Context) ([]registrar.Domain, error) {
 	return f.domains, nil

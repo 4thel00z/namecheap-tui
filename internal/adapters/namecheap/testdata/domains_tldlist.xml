@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.getTldList">
+    <Tlds>
+      <Tld Name="com" NonRealTime="false" MinRegisterYears="1" MaxRegisterYears="10" IsApiRegisterable="true" IsApiRenewable="true">Most popular TLD</Tld>
+      <Tld Name="dev" NonRealTime="false" MinRegisterYears="1" MaxRegisterYears="10" IsApiRegisterable="true" IsApiRenewable="true">Developers</Tld>
+      <Tld Name="museum" NonRealTime="true" MinRegisterYears="1" MaxRegisterYears="1" IsApiRegisterable="false" IsApiRenewable="false">Museums</Tld>
+    </Tlds>
+  </CommandResponse>
+</ApiResponse>
