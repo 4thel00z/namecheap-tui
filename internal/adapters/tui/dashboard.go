@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/4thel00z/namecheap-tui/internal/adapters/tui/table"
 	"github.com/charmbracelet/bubbles/spinner"
-	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
