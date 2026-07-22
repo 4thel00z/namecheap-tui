@@ -213,15 +213,43 @@ schema_migrations (version)
 - `adapters/tui`: `charmbracelet/x/exp/teatest` snapshot flows for dashboard + zone editor.
 - CI: `go vet`, `golangci-lint run`, `go test ./...` (CGO_ENABLED=1).
 
+## Tooling & CI/CD
+
+Modeled on 4thel00z/konan (release-please chain) and 4thel00z/metalbrew
+(native-runner artifact builds), adapted for Go + CGo.
+
+- **Conventional commits** — enforced locally by a `commit-msg` pre-commit hook
+  (`compilerla/conventional-pre-commit`); they drive release-please versioning
+  and the CHANGELOG.
+- **`.pre-commit-config.yaml`** — hygiene (trailing-whitespace, end-of-file-fixer,
+  check-yaml, check-added-large-files), Go hooks (gofumpt, `go vet`,
+  `golangci-lint`, `go mod tidy`), and the conventional-commit msg check.
+  `make hooks` installs them.
+- **`Makefile`** — `build`, `test`, `lint`, `fmt`, `hooks`, `run` targets (dev UX
+  parity with metalbrew).
+- **`.github/workflows/ci.yml`** — split jobs like konan: `fmt` (gofumpt -l),
+  `lint` (golangci-lint-action), `test` (matrix: ubuntu-latest + macos-latest,
+  `CGO_ENABLED=1`, `go test -race ./...`), `build`.
+- **`.github/workflows/release-please.yml`** — `googleapis/release-please-action@v5`
+  (release-type `go`; version stamped into `internal/version/version.go` via
+  `x-release-please-version` marker; CHANGELOG.md maintained automatically).
+  A chained `binaries` job (like konan's PyPI chain — release-please's token
+  doesn't fire tag workflows) builds on native runners because CGo rules out
+  lazy cross-compilation: linux/amd64 (ubuntu-latest), linux/arm64
+  (ubuntu-24.04-arm), darwin/arm64 (macos-latest), darwin/amd64 (macos-13);
+  each uploads `ncp-<os>-<arch>` + `.sha256` and attaches to the GitHub release
+  via `softprops/action-gh-release@v2` (metalbrew's pattern).
+
 ## Build phases
 
-1. **Skeleton:** hexagon layout, Turso adapter + migrations, profile service +
-   `profile add|list|use|rm`, XML client core (auth/throttle/errors),
+1. **Skeleton:** repo tooling first (Makefile, pre-commit hooks, ci.yml,
+   release-please), then hexagon layout, Turso adapter + migrations, profile
+   service + `profile add|list|use|rm`, XML client core (auth/throttle/errors),
    `domains list|check|info`, TUI dashboard shell with domains tab.
 2. **DNS:** zone aggregate + changeset, full `dns`/`ns` commands, zone editor TUI,
    emailfwd, import/export.
 3. **Registrar lifecycle:** register/renew/reactivate wizard, contacts, lock, transfers.
 4. **SSL + privacy + account:** full `ssl`, `privacy`, `account`, `address` trees.
-5. **Polish:** completions, `--json` coverage audit, Turso sync UX, README, goreleaser.
+5. **Polish:** completions, `--json` coverage audit, Turso sync UX, README.
 
 Each phase ends green (vet + lint + tests) and usable.
