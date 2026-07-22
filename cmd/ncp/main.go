@@ -39,30 +39,59 @@ func run(ctx context.Context) error {
 	}
 	profiles := services.NewProfileService(store.Profiles(), iputil.New(), verify)
 
-	domainsFactory := func(ctx context.Context, profile string, sandbox bool) (*services.DomainService, error) {
+	client := func(ctx context.Context, profile string, sandbox bool) (*namecheap.Client, string, error) {
 		creds, err := profiles.Current(ctx, profile)
 		if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		if sandbox {
 			creds.Endpoint = account.EndpointSandbox
 		}
-		return services.NewDomainService(namecheap.New(creds), store.Cache(), creds.Name), nil
+		return namecheap.New(creds), creds.Name, nil
+	}
+	domainsFactory := func(ctx context.Context, profile string, sandbox bool) (*services.DomainService, error) {
+		c, name, err := client(ctx, profile, sandbox)
+		if err != nil {
+			return nil, err
+		}
+		return services.NewDomainService(c, store.Cache(), name), nil
+	}
+	dnsFactory := func(ctx context.Context, profile string, sandbox bool) (*services.DNSService, error) {
+		c, name, err := client(ctx, profile, sandbox)
+		if err != nil {
+			return nil, err
+		}
+		return services.NewDNSService(c, store.Cache(), name), nil
 	}
 
 	app := &cli.App{
 		Profiles: profiles,
 		Domains:  domainsFactory,
+		DNS:      dnsFactory,
+		NS: func(ctx context.Context, profile string, sandbox bool) (*services.NSService, error) {
+			c, _, err := client(ctx, profile, sandbox)
+			if err != nil {
+				return nil, err
+			}
+			return services.NewNSService(c), nil
+		},
 		RunTUI: func(ctx context.Context, profile string, sandbox bool) error {
 			svc, err := domainsFactory(ctx, profile, sandbox)
 			if err != nil {
 				return err
 			}
-			creds, err := profiles.Current(ctx, profile)
+			_, name, err := client(ctx, profile, sandbox)
 			if err != nil {
 				return err
 			}
-			return tui.Run(tui.NewDashboard(svc, creds.Name, version.Version))
+			return tui.Run(tui.NewDashboard(svc, name, version.Version))
+		},
+		RunZoneEditor: func(ctx context.Context, profile string, sandbox bool, domain string) error {
+			svc, err := dnsFactory(ctx, profile, sandbox)
+			if err != nil {
+				return err
+			}
+			return tui.Run(tui.NewZoneEditor(svc, domain))
 		},
 		Version: version.Version,
 	}
