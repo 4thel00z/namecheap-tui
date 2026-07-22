@@ -3983,4 +3983,3 @@ git add cmd/ncp README.md && git commit -m "feat: wire composition root with fan
 - `make build && make test && make lint` all green, `pre-commit run --all-files` clean.
 - `ncp profile add --name t --api-user u --username u --api-key k --client-ip 1.2.3.4` fails only at live verification (expected without real creds) — validates the whole wiring.
 - Phases 2–5 (DNS + zone editor, registrar lifecycle, SSL/privacy/account, polish) get their own plan documents following this same structure and the interfaces produced here.
-

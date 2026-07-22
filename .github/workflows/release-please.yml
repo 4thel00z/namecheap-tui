@@ -1,0 +1,52 @@
+name: release-please
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: rp
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # Chained like konan's PyPI publish: tags created by release-please's
+  # GITHUB_TOKEN do not trigger `on: push: tags` workflows.
+  binaries:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    strategy:
+      matrix:
+        include:
+          - { runner: ubuntu-latest, goos: linux, goarch: amd64 }
+          - { runner: ubuntu-24.04-arm, goos: linux, goarch: arm64 }
+          - { runner: macos-latest, goos: darwin, goarch: arm64 }
+          - { runner: macos-13, goos: darwin, goarch: amd64 }
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.24" }
+      - name: Build (CGo, native runner)
+        run: |
+          CGO_ENABLED=1 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+            go build -trimpath -ldflags="-s -w" -o dist/ncp-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/ncp
+          shasum -a 256 dist/ncp-${{ matrix.goos }}-${{ matrix.goarch }} | tee dist/ncp-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.release-please.outputs.tag_name }}
+          files: dist/*
