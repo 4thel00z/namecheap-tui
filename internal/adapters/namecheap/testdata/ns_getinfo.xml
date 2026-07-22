@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.ns.getInfo">
+    <DomainNSInfoResult Domain="alpha.com" Nameserver="ns1.alpha.com" IP="203.0.113.10">
+      <NameserverStatuses>
+        <Status>OK</Status>
+        <Status>Linked</Status>
+      </NameserverStatuses>
+    </DomainNSInfoResult>
+  </CommandResponse>
+</ApiResponse>

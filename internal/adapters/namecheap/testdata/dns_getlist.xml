@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.dns.getList">
+    <DomainDNSGetListResult Domain="alpha.com" IsUsingOurDNS="false">
+      <Nameserver>dns1.example.net</Nameserver>
+      <Nameserver>dns2.example.net</Nameserver>
+    </DomainDNSGetListResult>
+  </CommandResponse>
+</ApiResponse>
