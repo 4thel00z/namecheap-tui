@@ -15,6 +15,9 @@ type App struct {
 	DNS           func(ctx context.Context, profile string, sandbox bool) (*services.DNSService, error)
 	NS            func(ctx context.Context, profile string, sandbox bool) (*services.NSService, error)
 	Transfers     func(ctx context.Context, profile string, sandbox bool) (*services.TransferService, error)
+	SSL           func(ctx context.Context, profile string, sandbox bool) (*services.SSLService, error)
+	Privacy       func(ctx context.Context, profile string, sandbox bool) (*services.PrivacyService, error)
+	Account       func(ctx context.Context, profile string, sandbox bool) (*services.AccountService, error)
 	RunTUI        func(ctx context.Context, profile string, sandbox bool) error
 	RunZoneEditor func(ctx context.Context, profile string, sandbox bool, domain string) error
 	Version       string

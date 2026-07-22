@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.users.getPricing">
+    <UserGetPricingResult>
+      <ProductType Name="domains">
+        <ProductCategory Name="register">
+          <Product Name="com">
+            <Price Duration="1" DurationType="YEAR" Price="10.87" RegularPrice="12.98" YourPrice="10.87" Currency="USD" />
+            <Price Duration="2" DurationType="YEAR" Price="22.00" RegularPrice="25.96" YourPrice="22.00" Currency="USD" />
+          </Product>
+        </ProductCategory>
+      </ProductType>
+    </UserGetPricingResult>
+  </CommandResponse>
+</ApiResponse>

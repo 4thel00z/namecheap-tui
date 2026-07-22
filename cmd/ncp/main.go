@@ -82,6 +82,27 @@ func run(ctx context.Context) error {
 			}
 			return services.NewTransferService(c), nil
 		},
+		SSL: func(ctx context.Context, profile string, sandbox bool) (*services.SSLService, error) {
+			c, _, err := client(ctx, profile, sandbox)
+			if err != nil {
+				return nil, err
+			}
+			return services.NewSSLService(c), nil
+		},
+		Privacy: func(ctx context.Context, profile string, sandbox bool) (*services.PrivacyService, error) {
+			c, _, err := client(ctx, profile, sandbox)
+			if err != nil {
+				return nil, err
+			}
+			return services.NewPrivacyService(c), nil
+		},
+		Account: func(ctx context.Context, profile string, sandbox bool) (*services.AccountService, error) {
+			c, name, err := client(ctx, profile, sandbox)
+			if err != nil {
+				return nil, err
+			}
+			return services.NewAccountService(c, store.Cache(), name), nil
+		},
 		RunTUI: func(ctx context.Context, profile string, sandbox bool) error {
 			svc, err := domainsFactory(ctx, profile, sandbox)
 			if err != nil {

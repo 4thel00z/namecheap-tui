@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.users.address.getList">
+    <AddressGetListResult>
+      <List AddressId="18827" AddressName="Home" IsDefault="true" />
+      <List AddressId="18828" AddressName="Office" IsDefault="false" />
+    </AddressGetListResult>
+  </CommandResponse>
+</ApiResponse>
