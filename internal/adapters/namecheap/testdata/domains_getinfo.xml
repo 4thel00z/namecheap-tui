@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.getInfo">
+    <DomainGetInfoResult Status="Ok" ID="42" DomainName="alpha.com" OwnerName="owner" IsOwner="true" IsPremium="false">
+      <DomainDetails>
+        <CreatedDate>02/15/2020</CreatedDate>
+        <ExpiredDate>02/15/2027</ExpiredDate>
+        <NumYears>1</NumYears>
+      </DomainDetails>
+      <Whoisguard Enabled="True">
+        <ID>7</ID>
+      </Whoisguard>
+      <DnsDetails ProviderType="CUSTOM" IsUsingOurDNS="false">
+        <Nameserver>dns1.example.net</Nameserver>
+        <Nameserver>dns2.example.net</Nameserver>
+      </DnsDetails>
+    </DomainGetInfoResult>
+  </CommandResponse>
+</ApiResponse>
