@@ -44,7 +44,7 @@ func (nilCache) Invalidate(context.Context, string, string) error          { ret
 
 func TestDashboardShowsDomains(t *testing.T) {
 	svc := services.NewDomainService(fakeRegistrar{}, nilCache{}, "test")
-	m := tui.NewDashboard(svc, "test", "0.0.0")
+	m := tui.NewDashboard(tui.DashboardDeps{Domains: svc}, "test", "0.0.0")
 	tm := teatest.NewTestModel(t, m, teatest.WithInitialTermSize(100, 30))
 
 	teatest.WaitFor(t, tm.Output(), func(b []byte) bool {

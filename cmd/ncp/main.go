@@ -104,15 +104,17 @@ func run(ctx context.Context) error {
 			return services.NewAccountService(c, store.Cache(), name), nil
 		},
 		RunTUI: func(ctx context.Context, profile string, sandbox bool) error {
-			svc, err := domainsFactory(ctx, profile, sandbox)
+			c, name, err := client(ctx, profile, sandbox)
 			if err != nil {
 				return err
 			}
-			_, name, err := client(ctx, profile, sandbox)
-			if err != nil {
-				return err
+			deps := tui.DashboardDeps{
+				Domains:   services.NewDomainService(c, store.Cache(), name),
+				SSL:       services.NewSSLService(c),
+				Transfers: services.NewTransferService(c),
+				Account:   services.NewAccountService(c, store.Cache(), name),
 			}
-			return tui.Run(tui.NewDashboard(svc, name, version.Version))
+			return tui.Run(tui.NewDashboard(deps, name, version.Version))
 		},
 		RunZoneEditor: func(ctx context.Context, profile string, sandbox bool, domain string) error {
 			svc, err := dnsFactory(ctx, profile, sandbox)
@@ -121,7 +123,9 @@ func run(ctx context.Context) error {
 			}
 			return tui.Run(tui.NewZoneEditor(svc, domain))
 		},
-		Version: version.Version,
+		Settings: store.Settings(),
+		Sync:     store.Sync,
+		Version:  version.Version,
 	}
 	return fang.Execute(ctx, cli.Root(app), fang.WithVersion(version.Version))
 }

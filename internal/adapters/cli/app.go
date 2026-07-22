@@ -4,6 +4,7 @@ package cli
 import (
 	"context"
 
+	"github.com/4thel00z/namecheap-tui/internal/core/ports"
 	"github.com/4thel00z/namecheap-tui/internal/core/services"
 )
 
@@ -20,5 +21,7 @@ type App struct {
 	Account       func(ctx context.Context, profile string, sandbox bool) (*services.AccountService, error)
 	RunTUI        func(ctx context.Context, profile string, sandbox bool) error
 	RunZoneEditor func(ctx context.Context, profile string, sandbox bool, domain string) error
+	Settings      ports.SettingsRepo
+	Sync          func() error
 	Version       string
 }
