@@ -29,6 +29,6 @@ func Root(app *App) *cobra.Command {
 	pf.Bool("no-cache", false, "bypass the local cache")
 	pf.Bool("sandbox", false, "use the Namecheap sandbox endpoint")
 
-	root.AddCommand(profileCmd(app), domainsCmd(app), dnsCmd(app), nsCmd(app))
+	root.AddCommand(profileCmd(app), domainsCmd(app), dnsCmd(app), nsCmd(app), transferCmd(app))
 	return root
 }

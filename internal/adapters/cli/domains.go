@@ -16,7 +16,11 @@ func domainsCmd(app *App) *cobra.Command {
 		Use:   "domains",
 		Short: "Manage registered domains",
 	}
-	cmd.AddCommand(domainsListCmd(app), domainsCheckCmd(app), domainsInfoCmd(app))
+	cmd.AddCommand(
+		domainsListCmd(app), domainsCheckCmd(app), domainsInfoCmd(app),
+		domainsRegisterCmd(app), domainsRenewCmd(app), domainsReactivateCmd(app),
+		domainsLockCmd(app), domainsContactsCmd(app), domainsTldsCmd(app),
+	)
 	return cmd
 }
 

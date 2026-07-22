@@ -75,6 +75,13 @@ func run(ctx context.Context) error {
 			}
 			return services.NewNSService(c), nil
 		},
+		Transfers: func(ctx context.Context, profile string, sandbox bool) (*services.TransferService, error) {
+			c, _, err := client(ctx, profile, sandbox)
+			if err != nil {
+				return nil, err
+			}
+			return services.NewTransferService(c), nil
+		},
 		RunTUI: func(ctx context.Context, profile string, sandbox bool) error {
 			svc, err := domainsFactory(ctx, profile, sandbox)
 			if err != nil {
