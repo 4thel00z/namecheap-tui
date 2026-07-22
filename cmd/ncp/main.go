@@ -34,7 +34,7 @@ func run(ctx context.Context) error {
 	defer func() { _ = store.Close() }()
 
 	verify := func(ctx context.Context, creds account.Credentials) error {
-		_, err := namecheap.New(creds).ListDomains(ctx)
+		_, err := namecheap.New(creds, apiOpts()...).ListDomains(ctx)
 		return err
 	}
 	profiles := services.NewProfileService(store.Profiles(), iputil.New(), verify)
@@ -47,7 +47,7 @@ func run(ctx context.Context) error {
 		if sandbox {
 			creds.Endpoint = account.EndpointSandbox
 		}
-		return namecheap.New(creds), creds.Name, nil
+		return namecheap.New(creds, apiOpts()...), creds.Name, nil
 	}
 	domainsFactory := func(ctx context.Context, profile string, sandbox bool) (*services.DomainService, error) {
 		c, name, err := client(ctx, profile, sandbox)
@@ -128,6 +128,15 @@ func run(ctx context.Context) error {
 		Version:  version.Version,
 	}
 	return fang.Execute(ctx, cli.Root(app), fang.WithVersion(version.Version))
+}
+
+// apiOpts returns client overrides for dev and e2e runs: NCP_BASE_URL
+// redirects all API traffic (and disables throttling) when set.
+func apiOpts() []namecheap.Option {
+	if base := os.Getenv("NCP_BASE_URL"); base != "" {
+		return []namecheap.Option{namecheap.WithBaseURL(base), namecheap.WithNoThrottle()}
+	}
+	return nil
 }
 
 // openStore opens the config DB — an embedded Turso replica when
