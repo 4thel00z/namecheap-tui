@@ -31,7 +31,8 @@ func Root(app *App) *cobra.Command {
 
 	root.AddCommand(
 		profileCmd(app), domainsCmd(app), dnsCmd(app), nsCmd(app),
-		transferCmd(app), sslCmd(app), privacyCmd(app), accountCmd(app), addressCmd(app),
+		transferCmd(app), sslCmd(app), privacyCmd(app), accountCmd(app),
+		addressCmd(app), configCmd(app),
 	)
 	return root
 }
