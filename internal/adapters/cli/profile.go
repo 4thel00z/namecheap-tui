@@ -51,7 +51,7 @@ func profileAddCmd(app *App) *cobra.Command {
 			if err := app.Profiles.Add(cmd.Context(), creds); err != nil {
 				return err
 			}
-			fmt.Fprintf(cmd.OutOrStdout(), "profile %q saved\n", name)
+			_, _ = fmt.Fprintf(cmd.OutOrStdout(), "profile %q saved\n", name)
 			return nil
 		},
 	}

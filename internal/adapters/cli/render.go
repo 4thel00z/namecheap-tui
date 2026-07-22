@@ -29,5 +29,5 @@ func renderTable(w io.Writer, headers []string, rows [][]string) {
 			}
 			return lipgloss.NewStyle().Padding(0, 1)
 		})
-	fmt.Fprintln(w, t)
+	_, _ = fmt.Fprintln(w, t)
 }
