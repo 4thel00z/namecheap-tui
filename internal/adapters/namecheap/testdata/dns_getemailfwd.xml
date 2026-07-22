@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.dns.getEmailForwarding">
+    <DomainDNSGetEmailForwardingResult Domain="alpha.com">
+      <forward mailbox="info">team@example.org</forward>
+      <forward mailbox="sales">sales@example.org</forward>
+    </DomainDNSGetEmailForwardingResult>
+  </CommandResponse>
+</ApiResponse>
