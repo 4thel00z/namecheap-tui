@@ -7,13 +7,15 @@ import (
 	"time"
 
 	"github.com/4thel00z/namecheap-tui/internal/core/domain/registrar"
+	"github.com/4thel00z/namecheap-tui/internal/core/ports"
 	"github.com/4thel00z/namecheap-tui/internal/core/services"
 )
 
 type fakeRegistrar struct {
-	listCalls int
-	domains   []registrar.Domain
-	checked   []registrar.DomainName
+	ports.RegistrarAPI // unimplemented methods panic if called
+	listCalls          int
+	domains            []registrar.Domain
+	checked            []registrar.DomainName
 }
 
 func (f *fakeRegistrar) ListDomains(context.Context) ([]registrar.Domain, error) {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.create">
+    <DomainCreateResult Domain="newdomain.com" Registered="true" ChargedAmount="10.87" DomainID="9007" OrderID="196074" TransactionID="380716" WhoisguardEnable="true" NonRealTimeDomain="false" />
+  </CommandResponse>
+</ApiResponse>

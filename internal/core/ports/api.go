@@ -17,6 +17,30 @@ type RegistrarAPI interface {
 	CheckDomains(ctx context.Context, names []registrar.DomainName) ([]registrar.Availability, error)
 	// DomainInfo returns full details for one domain.
 	DomainInfo(ctx context.Context, name registrar.DomainName) (registrar.Details, error)
+	// RegisterDomain registers a new domain.
+	RegisterDomain(ctx context.Context, reg registrar.Registration) (registrar.RegistrationResult, error)
+	// RenewDomain extends a registration by the given years.
+	RenewDomain(ctx context.Context, name registrar.DomainName, years int) (registrar.RenewalResult, error)
+	// ReactivateDomain re-activates an expired domain.
+	ReactivateDomain(ctx context.Context, name registrar.DomainName) error
+	// GetContacts returns the domain's WHOIS contacts.
+	GetContacts(ctx context.Context, name registrar.DomainName) (registrar.ContactSet, error)
+	// SetContacts replaces the domain's WHOIS contacts.
+	SetContacts(ctx context.Context, name registrar.DomainName, contacts registrar.ContactSet) error
+	// LockStatus reports whether the registrar lock is enabled.
+	LockStatus(ctx context.Context, name registrar.DomainName) (bool, error)
+	// SetLock enables or disables the registrar lock.
+	SetLock(ctx context.Context, name registrar.DomainName, locked bool) error
+	// TLDs lists the TLDs Namecheap offers.
+	TLDs(ctx context.Context) ([]registrar.TLD, error)
+}
+
+// TransferAPI manages inbound domain transfers.
+type TransferAPI interface {
+	CreateTransfer(ctx context.Context, name registrar.DomainName, eppCode string, years int) (registrar.Transfer, error)
+	TransferStatus(ctx context.Context, id string) (registrar.Transfer, error)
+	ListTransfers(ctx context.Context) ([]registrar.Transfer, error)
+	ResubmitTransfer(ctx context.Context, id string) error
 }
 
 // DNSAPI is the zone-management capability of the registrar.

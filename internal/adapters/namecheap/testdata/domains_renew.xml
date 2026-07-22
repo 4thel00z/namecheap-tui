@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApiResponse Status="OK" xmlns="http://api.namecheap.com/xml.response">
+  <Errors />
+  <CommandResponse Type="namecheap.domains.renew">
+    <DomainRenewResult DomainName="alpha.com" DomainID="9007" Renew="true" OrderID="196075" TransactionID="380717" ChargedAmount="14.20">
+      <DomainDetails>
+        <ExpiredDate>02/15/2028</ExpiredDate>
+        <NumYears>1</NumYears>
+      </DomainDetails>
+    </DomainRenewResult>
+  </CommandResponse>
+</ApiResponse>
