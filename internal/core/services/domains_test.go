@@ -2,6 +2,7 @@ package services_test
 
 import (
 	"context"
+	"strings"
 	"testing"
 	"time"
 
@@ -47,7 +48,14 @@ func (f *fakeCache) Put(_ context.Context, p, kind, key string, payload []byte) 
 	return nil
 }
 
-func (f *fakeCache) Invalidate(_ context.Context, p, kind string) error { return nil }
+func (f *fakeCache) Invalidate(_ context.Context, p, kind string) error {
+	for k := range f.m {
+		if strings.HasPrefix(k, p+"/"+kind+"/") {
+			delete(f.m, k)
+		}
+	}
+	return nil
+}
 
 func dom(name string) registrar.Domain {
 	n, _ := registrar.Parse(name)
