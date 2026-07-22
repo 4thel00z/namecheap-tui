@@ -74,6 +74,12 @@ cover-html: cover ## Open the HTML coverage report
 .PHONY: check
 check: fmt lint test ## Everything CI runs: fmt + lint + test
 
+.PHONY: screenshots
+screenshots: ## Regenerate the README screenshots in assets/ (needs tmux + freeze)
+	@printf '$(CYAN)▶$(RESET) regenerating screenshots\n'
+	@zsh scripts/screenshots/regen.sh
+	@printf '$(GREEN)✓$(RESET) assets/\n'
+
 ##@ Setup
 
 .PHONY: tidy
